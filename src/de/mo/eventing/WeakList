@@ -1,0 +1,33 @@
+package de.mo.eventing;
+
+import java.util.Map;
+import java.util.WeakHashMap;
+import java.util.function.Consumer;
+
+public class WeakList<E>
+{
+
+   private static final Object DUMMY_VALUE = new Object();
+   private final Map<E, Object> map = new WeakHashMap<>();
+
+   public void add(E element)
+   {
+      this.map.put(element, DUMMY_VALUE);
+   }
+
+   public void forEach(Consumer<? super E> consumer)
+   {
+      map.keySet().parallelStream().forEach(consumer);
+   }
+
+   public int size()
+   {
+      return map.size();
+   }
+
+   public boolean isEmpty()
+   {
+      return size() == 0;
+   }
+
+}
