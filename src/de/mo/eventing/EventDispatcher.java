@@ -11,10 +11,10 @@ import de.mo.eventing.events.Event;
 
 public class EventDispatcher {
 
-	private final Map<Class<? extends Event>, List<Consumer<Event>>> eventToConsumer = new HashMap<>();
+	private final Map<Class<Event>, List<Consumer<Event>>> eventToConsumer = new HashMap<>();
 	int dispatchedEvents;
 
-	public void addDispatching(final Class<? extends Event> class1, final Consumer<? extends Event> consumer) {
+	public  <K extends Event> void addDispatching(final Class<K> class1, final Consumer<K> consumer) {
 		this.eventToConsumer.computeIfAbsent(class1, x -> new ArrayList<>()).add((Consumer<Event>) consumer);
 	}
 
